@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: otel-demo
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx-space
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+
