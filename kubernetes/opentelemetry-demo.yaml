@@ -10978,7 +10978,8 @@ spec:
           configMap:
             name: grafana-dashboards
         - name: storage
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: grafana-pvc
 ---
 # Source: opentelemetry-demo/charts/jaeger/templates/allinone-deploy.yaml
 apiVersion: apps/v1
@@ -12734,3 +12735,14 @@ spec:
             - name: config-emptydir
               mountPath: /usr/share/opensearch/config/opensearch.yml
               subPath: opensearch.yml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
