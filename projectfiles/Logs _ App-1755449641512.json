@@ -17,10 +17,10 @@
     ]
   },
   "description": "Log Viewer Dashboard for Loki",
-  "editable": true,
+  "editable": false,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 6,
   "links": [
     {
       "$$hashKey": "object:59",
@@ -47,7 +47,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "fevafvykk61a8f"
+        "uid": "aevawigmbrmyoe"
       },
       "fieldConfig": {
         "defaults": {
@@ -131,7 +131,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "fevafvykk61a8f"
+            "uid": "aevawigmbrmyoe"
           },
           "expr": "sum(count_over_time({job=\"$app\"} |= \"$search\" [$__interval]))",
           "legendFormat": "",
@@ -144,7 +144,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "fevafvykk61a8f"
+        "uid": "aevawigmbrmyoe"
       },
       "fieldConfig": {
         "defaults": {},
@@ -174,7 +174,7 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "fevafvykk61a8f"
+            "uid": "aevawigmbrmyoe"
           },
           "expr": "{job=\"$app\"} |= \"$search\" | logfmt",
           "hide": false,
@@ -198,7 +198,7 @@
           "text": "argocd/argocd-application-controller",
           "value": "argocd/argocd-application-controller"
         },
-        "datasource": "fevafvykk61a8f",
+        "datasource": "aevawigmbrmyoe",
         "definition": "label_values(job)",
         "includeAll": false,
         "label": "App",
@@ -225,22 +225,6 @@
         ],
         "query": "",
         "type": "textbox"
-      },
-      {
-        "baseFilters": [],
-        "datasource": {
-          "type": "loki",
-          "uid": "fevafvykk61a8f"
-        },
-        "filters": [
-          {
-            "key": "__error__",
-            "operator": "=",
-            "value": "LogfmtParserErr"
-          }
-        ],
-        "name": "Filters",
-        "type": "adhoc"
       }
     ]
   },
@@ -264,6 +248,6 @@
   "timezone": "",
   "title": "Logs / App",
   "uid": "sadlil-loki-apps-dashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
