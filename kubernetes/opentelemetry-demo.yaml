@@ -12773,6 +12773,10 @@ spec:
                   number: 80
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-alerts
+  namespace: "otel-demo"
 data:
   alert-rules-1755452172549.yaml: |
     apiVersion: 1
@@ -13094,10 +13098,3 @@ data:
                 __dashboardUid__: W2gX2zHVk46
                 __panelId__: "16"
               isPaused: false
-kind: ConfigMap
-metadata:
-  creationTimestamp: "2025-08-17T19:15:29Z"
-  name: grafana-alerts
-  namespace: otel-demo
-  resourceVersion: "483423"
-  uid: 110b7a89-9adf-41f8-867f-38273354d396
