@@ -116,9 +116,9 @@ data:
     [analytics]
     check_for_updates = true
     [auth]
-    disable_login_form = true
+    disable_login_form = false
     [auth.anonymous]
-    enabled = true
+    enabled = false
     org_name = Main Org.
     org_role = Admin
     [grafana_net]
