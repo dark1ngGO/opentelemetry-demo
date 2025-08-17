@@ -12747,6 +12747,7 @@ spec:
     requests:
       storage: 5Gi
 ---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: grafana-ingress
