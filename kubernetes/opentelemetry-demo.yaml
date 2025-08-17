@@ -12771,3 +12771,333 @@ spec:
                 name: grafana
                 port:
                   number: 80
+---
+apiVersion: v1
+data:
+  alert-rules-1755452172549.yaml: |
+    apiVersion: 1
+    groups:
+        - orgId: 1
+          name: kuber
+          folder: kuber
+          interval: 1m
+          rules:
+            - uid: cevagu4zc3zswb
+              title: Cluster CPU Utilization
+              condition: B
+              data:
+                - refId: Linux
+                  relativeTimeRange:
+                    from: 3600
+                    to: 0
+                  datasourceUid: webstore-metrics
+                  model:
+                    adhocFilters: []
+                    datasource:
+                        type: prometheus
+                        uid: webstore-metrics
+                    editorMode: code
+                    exemplar: true
+                    expr: avg(sum by (instance, cpu) (rate(node_cpu_seconds_total{mode!~"idle|iowait|steal", cluster="", job="kubernetes-service-endpoints"}[$__rate_interval])))
+                    instant: true
+                    interval: 30s
+                    intervalMs: 15000
+                    legendFormat: Linux
+                    maxDataPoints: 43200
+                    range: false
+                    refId: Linux
+                - refId: A
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params: []
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - A
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: Linux
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    reducer: last
+                    refId: A
+                    type: reduce
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params:
+                                - 80
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - B
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: A
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    refId: B
+                    type: threshold
+              dashboardUid: k8s_views_global
+              panelId: 72
+              noDataState: NoData
+              execErrState: Error
+              for: 1m
+              annotations:
+                __dashboardUid__: k8s_views_global
+                __panelId__: "72"
+              isPaused: false
+            - uid: devagwxg5l7uob
+              title: Cluster Memory Utilization
+              condition: B
+              data:
+                - refId: Linux
+                  relativeTimeRange:
+                    from: 3600
+                    to: 0
+                  datasourceUid: webstore-metrics
+                  model:
+                    adhocFilters: []
+                    datasource:
+                        type: prometheus
+                        uid: webstore-metrics
+                    editorMode: code
+                    exemplar: true
+                    expr: sum(node_memory_MemTotal_bytes{cluster="", job="kubernetes-service-endpoints"} - node_memory_MemAvailable_bytes{cluster="", job="kubernetes-service-endpoints"}) / sum(node_memory_MemTotal_bytes{cluster="", job="kubernetes-service-endpoints"})
+                    instant: true
+                    interval: 30s
+                    intervalMs: 15000
+                    legendFormat: Linux
+                    maxDataPoints: 43200
+                    range: false
+                    refId: Linux
+                - refId: A
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params: []
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - A
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: Linux
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    reducer: last
+                    refId: A
+                    type: reduce
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params:
+                                - 80
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - B
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: A
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    refId: B
+                    type: threshold
+              dashboardUid: k8s_views_global
+              panelId: 55
+              noDataState: NoData
+              execErrState: Error
+              for: 1m
+              annotations:
+                __dashboardUid__: k8s_views_global
+                __panelId__: "55"
+              isPaused: false
+            - uid: cevagzqaaiy9sb
+              title: Kubernetes Pods Status Reason
+              condition: C
+              data:
+                - refId: A
+                  relativeTimeRange:
+                    from: 3600
+                    to: 0
+                  datasourceUid: webstore-metrics
+                  model:
+                    adhocFilters: []
+                    datasource:
+                        type: prometheus
+                        uid: webstore-metrics
+                    editorMode: code
+                    exemplar: true
+                    expr: sum(kube_pod_status_reason{cluster=""}) by (reason)
+                    instant: true
+                    interval: ""
+                    intervalMs: 15000
+                    legendFormat: '{{ reason }}'
+                    maxDataPoints: 43200
+                    range: false
+                    refId: A
+                - refId: C
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params:
+                                - 0
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - C
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: A
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    refId: C
+                    type: threshold
+              dashboardUid: k8s_views_global
+              panelId: 85
+              noDataState: NoData
+              execErrState: Error
+              for: 1m
+              annotations:
+                __dashboardUid__: k8s_views_global
+                __panelId__: "85"
+              isPaused: false
+        - orgId: 1
+          name: app
+          folder: app
+          interval: 1m
+          rules:
+            - uid: devalpochhgqoa
+              title: 'Top 7 Latencies Over Range '
+              condition: C
+              data:
+                - refId: A
+                  relativeTimeRange:
+                    from: 3600
+                    to: 0
+                  datasourceUid: webstore-metrics
+                  model:
+                    adhocFilters: []
+                    datasource:
+                        type: prometheus
+                        uid: webstore-metrics
+                    editorMode: code
+                    exemplar: true
+                    expr: topk(7,sum by (span_name,service_name)(increase(traces_span_metrics_duration_milliseconds_sum{service_name=~"(frontend|frontend-proxy)", span_name=~".*"}[$__rate_interval]) / increase(traces_span_metrics_duration_milliseconds_count{service_name=~"(frontend|frontend-proxy)", span_name=~".*"}[$__rate_interval])))
+                    instant: false
+                    interval: ""
+                    intervalMs: 300000
+                    legendFormat: '[{{service_name}}]  {{span_name}}'
+                    maxDataPoints: 43200
+                    range: true
+                    refId: A
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params: []
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - B
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: A
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    reducer: last
+                    refId: B
+                    type: reduce
+                - refId: C
+                  datasourceUid: __expr__
+                  model:
+                    conditions:
+                        - evaluator:
+                            params:
+                                - 5000
+                            type: gt
+                          operator:
+                            type: and
+                          query:
+                            params:
+                                - C
+                          reducer:
+                            params: []
+                            type: last
+                          type: query
+                    datasource:
+                        type: __expr__
+                        uid: __expr__
+                    expression: B
+                    intervalMs: 1000
+                    maxDataPoints: 43200
+                    refId: C
+                    type: threshold
+              dashboardUid: W2gX2zHVk46
+              panelId: 16
+              noDataState: NoData
+              execErrState: Error
+              for: 1m
+              annotations:
+                __dashboardUid__: W2gX2zHVk46
+                __panelId__: "16"
+              isPaused: false
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-08-17T19:15:29Z"
+  name: grafana-alerts
+  namespace: otel-demo
+  resourceVersion: "483423"
+  uid: 110b7a89-9adf-41f8-867f-38273354d396
