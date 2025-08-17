@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: otel-demo
+  namespace: argocd
+spec:
+  project: otel-demo
+  source:
+    repoURL: https://github.com/dark1ngGO/opentelemetry-demo.git
+    path: kubernetes
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: otel-demo
+  syncPolicy:
+    automated:
+      selfHeal: true
+  syncOptions:
+    - ServerSideApply=true

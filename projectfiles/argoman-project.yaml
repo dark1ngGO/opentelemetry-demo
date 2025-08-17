@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  creationTimestamp: "2025-08-16T17:23:07Z"
+  generation: 9
+  name: otel-demo
+  namespace: argocd
+  resourceVersion: "292129"
+  uid: 7900d13c-fab3-4bf9-8c22-2871bf472b2e
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: otel-demo
+  destinationServiceAccounts:
+    - defaultServiceAccount: in-cluster
+      namespace: otel-demo
+      server: https://kubernetes.default.svc
+  destinations:
+    - name: in-cluster
+      namespace: otel-demo
+      server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  sourceRepos:
+    - https://github.com/dark1ngGO/opentelemetry-demo.git
+status: {}
