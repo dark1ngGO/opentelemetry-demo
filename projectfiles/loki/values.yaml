@@ -1,0 +1,41 @@
+loki:
+  auth_enabled: false
+
+  commonConfig:
+    replication_factor: 1
+    storage:
+      s3:
+        bucketnames: lokibucket
+        endpoint: https://storage.yandexcloud.net/ultramegabuck1
+        region: aws:amz:ru-central1:s3
+        access_key_id: xxxx
+        secret_access_key: xxxx
+        s3forcepathstyle: true
+
+  storage:
+    type: s3
+    s3:
+      bucketnames: lokibucket
+      endpoint: https://storage.yandexcloud.net/ultramegabuck1
+      region: aws:amz:ru-central1:s3
+      access_key_id: xxxx
+      secret_access_key: xxxx
+      s3forcepathstyle: true
+
+  podAnnotations: {}
+
+promtail:
+  enabled: true
+  daemonSet:
+    enabled: true
+
+  config:
+    clients:
+      - url: http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
+    snippets:
+      pipelineStages:
+        - docker: {}
+        - cri: {}
+
+prometheus:
+  enabled: True
