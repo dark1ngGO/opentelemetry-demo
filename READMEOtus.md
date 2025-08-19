@@ -28,6 +28,7 @@
 1. Склонировать данный репозиторий на машину под управлением OS Windows 10 или 11.
 2. Затем в powershell запустить скрипт .\projectfiles\create-kuber-cluster.ps1 со следующими парамтерами:
 
+```
 .\projectfiles\create-kuber-cluster.ps1 `
     -FolderId "xxxx" `
     -BucketName "xxxx" `
@@ -39,7 +40,7 @@
         @{ Name = "sa-puller"; Roles = @("container-registry.images.puller") },
         @{ Name = "sa-objectstorage"; Roles = @("storage.admin", "storage.viewer", "storage.editor") }
 )
-
+```
 Где :
 
 FolderId - ID директории, который Вы сохранили при создании.
