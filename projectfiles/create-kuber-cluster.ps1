@@ -3,7 +3,7 @@ param (
     [array]$ServiceAccounts,  # Массив объектов: @{ Name="имя"; Roles=@("роль1","роль2") }
 
     [Parameter(Mandatory = $true)]
-    [string]$FolderId,        # Папка для сервисных аккаунтов
+    [string]$FolderId,        # Папка в ya cloud
      
     [Parameter(Mandatory = $true)]
     [string]$BucketName,      # Имя S3-бакета
@@ -31,7 +31,8 @@ foreach ($saDef in $ServiceAccounts) {
         $createCmd = "yc iam service-account create --name $ServiceAccountName --folder-id $FolderId --format json"
         $sa = Invoke-Expression $createCmd | ConvertFrom-Json
         Write-Host "Service account created: $($sa.id)"
-    } else {
+    }
+    else {
         Write-Host "Service account '$ServiceAccountName' already exists: $($sa.id)"
     }
 
@@ -61,7 +62,8 @@ if (-not $bucketExists) {
     Write-Host "Bucket '$BucketName' not found. Creating..."
     yc storage bucket create --name $BucketName --folder-id $FolderId --max-size $BucketSize
     Write-Host "Bucket '$BucketName' created."
-} else {
+}
+else {
     Write-Host "Bucket '$BucketName' already exists."
 }
 
@@ -71,7 +73,8 @@ if (-not $net) {
     Write-Host "Network '$Networkname' not found. Creating..."
     $net = yc vpc network create --name $Networkname --description "My network" --folder-id $FolderId --format json | ConvertFrom-Json
     Write-Host "Network created: $($net.id)"
-} else {
+}
+else {
     Write-Host "Network '$Networkname' already exists: $($net.id)"
 }
 $NetworkId = $net.id
@@ -84,7 +87,8 @@ function Get-OrCreateSubnet([string]$name, [string]$zone, [string]$cidr) {
             throw "Subnet '$name' exists but belongs to another network ($($s.network_id)). Expected network: $NetworkId"
         }
         Write-Host "Subnet '$name' already exists: $($s.id)"
-    } else {
+    }
+    else {
         Write-Host "Subnet '$name' not found in folder $FolderId. Creating ($zone, $cidr)..."
         $s = yc vpc subnet create --name $name --description "My subnet" --folder-id $FolderId --network-id $NetworkId --zone $zone --range $cidr --format json | ConvertFrom-Json
         Write-Host "Subnet created: $($s.id)"
@@ -114,7 +118,8 @@ if (-not $cluster) {
         --folder-id $FolderId `
         --format json | ConvertFrom-Json
     Write-Host "Cluster created: $($cluster.id)"
-} else {
+}
+else {
     Write-Host "Cluster '$Clustername' already exists: $($cluster.id)"
 }
 $ClusterID = $cluster.id
@@ -138,7 +143,8 @@ if (-not $nodeGroup) {
         --network-interface subnets=$SubnetId,ipv4-address=nat `
         --folder-id $FolderId
     Write-Host "Node-group 'k8s-test-workers' created."
-} else {
+}
+else {
     Write-Host "Node-group 'k8s-test-workers' already exists."
 }
 
@@ -179,8 +185,8 @@ kubectl apply -f https://raw.githubusercontent.com/dark1ngGO/opentelemetry-demo/
 
 Write-Host "OK"
 
-# --- Ставим ingress-nginx ---
-Write-Host "Installing ingress-nginx"
+# --- Ставим Loki---
+Write-Host "Installing Loki"
 
 $LokiValuesPath = Join-Path -Path $PSScriptRoot -ChildPath "loki\values.yaml"
 helm install loki grafana/loki-stack --namespace monitoring -f $LokiValuesPath
